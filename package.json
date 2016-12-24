@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browser-sync": "^2.18.5",
     "gulp": "^3.9.1",
+    "gulp-inject": "^4.2.0",
     "gulp-nunjucks": "^2.3.0",
     "gulp-spawn": "^0.3.0",
     "gulp-watch": "^4.3.11",
@@ -17,6 +19,5 @@
     "nunjucks-tag-spaceless": "^1.0.0",
     "through2": "^2.0.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

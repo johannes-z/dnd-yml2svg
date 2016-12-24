@@ -3,8 +3,10 @@ const yaml = require('gulp-yaml')
 const through = require('through2')
 const spawn = require('gulp-spawn')
 const nunjucks = require('gulp-nunjucks')
+const inject = require('gulp-inject')
+const browserSync = require('browser-sync').create()
 
-gulp.task('default', ['build'])
+gulp.task('default', ['build', 'html'])
 
 gulp.task('build', () => {
   return gulp.src('./*.yml')
@@ -36,6 +38,26 @@ gulp.task('build', () => {
     }))
 })
 
-gulp.task('watch', ['build'], () => {
+gulp.task('html', () => {
+  return gulp.src('./index.html')
+    .pipe(inject(
+      gulp.src('./build/*.svg', { read: false }), {
+        transform: function (filepath, file) {
+          return '<object data=".' + filepath + '" type="image/svg+xml">\n\
+            <img src=".' + filepath + '"/>\n\
+          </object>'
+        }
+      }
+    ))
+    .pipe(gulp.dest('./'))
+})
+
+gulp.task('watch', ['build', 'html'], () => {
+  browserSync.init({
+    server: {
+      baseDir: './'
+    }
+  })
+  gulp.watch('./build/*.svg').on('change', browserSync.reload)
   return gulp.watch('./*.yml', ['build'])
 })
