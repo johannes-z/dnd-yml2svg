@@ -4,7 +4,7 @@ Transforms special yml constructs to svg via graphviz's dot
 
 ## Requirements
 - `Node` and `npm`: https://nodejs.org/en/
-- `dot`, an executable, being installed and in the `PATH`: http://www.graphviz.org/
+- `dot`, an executable, being in the `PATH`: http://www.graphviz.org/
 
 ## Installation
 - `clone` this repo
