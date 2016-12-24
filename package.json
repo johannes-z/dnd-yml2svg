@@ -1,0 +1,22 @@
+{
+  "name": "yaml-graphviz",
+  "version": "1.0.0",
+  "description": "Generates svg with graphviz from yaml.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nunjucks": "^2.3.0",
+    "gulp-spawn": "^0.3.0",
+    "gulp-watch": "^4.3.11",
+    "gulp-yaml": "^1.0.1",
+    "nunjucks-tag-spaceless": "^1.0.0",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+  }
+}

@@ -1,0 +1,70 @@
+name: Test
+
+doors:
+  - &wooden_simple
+    name: Simple wooden door
+    hardness: 5
+    hitpoints: 10
+    href: "http://www.d20srd.org/srd/epic/obstacles.htm#doors"
+  - &hidden_hatch
+    name: Hidden hatch
+    hardness: 5
+    hitpoints: 10
+
+traps:
+  - &trap_basic-arrow
+    name: Basic Arrow Trap
+    type: mechanical
+    attack: +10 ranged
+    damage: 1d6 / x3, arrow
+    search: 20
+    disable: 20
+    href: "http://www.d20srd.org/srd/traps.htm#cr1BasicArrowTrap"
+
+rooms:
+  - &kitchen
+    name: Kitchen
+  - &foyer
+    name: Foyer
+  - &hallway
+    name: Hallway
+  - &cellar
+    name: Cellar
+
+connections:
+  - from: *kitchen
+    to: *foyer
+    via: 
+      - <<: *wooden_simple
+        twoway: true
+        traps:
+          - *trap_basic-arrow
+
+  - from: *foyer
+    to: *hallway
+    via: 
+      - <<: *wooden_simple
+        twoway: true
+        locked: 20
+        traps:
+          - *trap_basic-arrow
+
+  - from: *kitchen
+    to: *hallway
+    via: 
+      - <<: *wooden_simple
+        twoway: true
+        traps:
+          - *trap_basic-arrow
+
+  - from: *kitchen
+    to: *cellar
+    via:
+      - <<: *hidden_hatch
+        hidden: 25
+        locked: 17
+        traps:
+          - *trap_basic-arrow
+      - <<: *wooden_simple
+        twoway: true
+        

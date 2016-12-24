@@ -1,0 +1,69 @@
+strict digraph {{ name }} {
+  graph [overlap=false, splines=line];
+  node [shape=box]
+
+{% set LINK_COLOR = "#1a0dab" %}
+
+{% set count = 0 %}
+{% for connection in connections %}
+  {% for via in connection.via %}
+  {% set count = count + 1 %}
+  {{ connection.from.name }} -> tmp{{ count }} [
+    dir="{{ "back" if via.twoway else "none" }}"
+  ]
+  tmp{{ count }} -> {{ connection.to.name }} [
+    dir="{{ "forward" if via.twoway }}"
+  ]
+  tmp{{ count }} [
+    fontsize="11"
+    shape=none
+    label=<
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td {{ 'href="' + via.href + '"' if via.href }} target="_blank">
+            {%- if via.href -%}
+              <font color="{{ LINK_COLOR }}">{{ via.name }}</font>
+            {%- else -%}
+              {{ via.name }}
+            {%- endif -%}
+          </td>
+        </tr>
+        {% if via.locked or via.hidden %}
+        <tr>
+          <td>{# -#}
+            {{ "Open Lock: " + via.locked if via.locked }}{# -#}
+            {{ " | " if (via.locked and via.hidden) }}{# -#}
+            {{ "Search: " + via.hidden if via.hidden }}{# -#}
+          </td>
+        </tr>
+        {% endif %}
+        {% for trap in via.traps %}
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td {{ 'href="' + trap.href + '"' if trap.href }} target="_blank">
+              {%- if trap.href -%}
+                <font color="{{ LINK_COLOR }}">{{ trap.name }}</font>
+              {%- else -%}
+                {{ trap.name }}
+              {%- endif -%}
+            </td>
+          </tr>
+          <tr><td>Attack: {{ trap.attack }}</td></tr>
+          <tr><td>Damage: {{ trap.damage }}</td></tr>
+          {% if trap.search or trap.disable %}
+          <tr>
+            <td>{# -#}
+              {{ "Search: " + trap.search if trap.search }}{# -#}
+              {{ " | " if (trap.search and trap.disable) }}{# -#}
+              {{ "Disable Device: " + trap.disable if trap.disable }}{# -#}
+            </td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+
+      </table>
+    >
+  ]
+  {% endfor %}
+{% endfor %}
+}
