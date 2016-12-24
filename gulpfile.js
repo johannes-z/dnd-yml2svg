@@ -1,5 +1,4 @@
 const gulp = require('gulp')
-const watch = require('gulp-watch')
 const yaml = require('gulp-yaml')
 const through = require('through2')
 const spawn = require('gulp-spawn')
@@ -27,7 +26,7 @@ gulp.task('build', () => {
           cmd: 'dot',
           args: ['-Tsvg'],
           filename: function (base, ext) {
-            return data.name + ".svg"
+            return data.name + '.svg'
           }
         }))
         // Save to FS
