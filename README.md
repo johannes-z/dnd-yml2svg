@@ -14,6 +14,12 @@ Transforms special yml constructs to svg via graphviz's dot
 - `gulp [build]` looks for `.yml` files in the root directory of the folder and creates the `svgs` in `./build/`.
 - `gulp watch` continuously builds the `svgs` when the `.yml` source changes.
 
+## Customization
+### SVG Output
+You can change the `template.dot`, a `nunjucks` template, to adjust the generated graph to your needs. 
+### File location
+The gulpfile looks for `.yml` files from `./` by default. You can change the glob in `gulpfile.js`, if for example you want to make a subdirectory with your files.
+
 ## Example
 
 ### YML Definition File
